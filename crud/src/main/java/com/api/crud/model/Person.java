@@ -3,6 +3,10 @@ package com.api.crud.model;
 import java.time.LocalDate;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -10,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "persons")
 @Entity(name = "persons")
 public class Person {
@@ -18,11 +23,13 @@ public class Person {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private int				id;
 	
+	@JsonManagedReference
+	@JsonIgnore
 	@OneToMany(mappedBy = "person")
-	private List<Adress>	adress;
+	private List<Adress>	adress;;
 	
 	private String			name;
-	private LocalDate			DateOfBirth;
+	private LocalDate		DateOfBirth;
 	
 	
 	
